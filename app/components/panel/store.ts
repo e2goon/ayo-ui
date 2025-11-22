@@ -7,6 +7,7 @@ export interface PanelItem {
   component: ReactNode;
   title?: string;
   position: { x: number; y: number };
+  className?: string;
 }
 
 interface PanelState {
@@ -18,7 +19,10 @@ const state = map<PanelState>({
 });
 
 const actions = {
-  open(component: ReactNode, { title }: { title?: string } = {}) {
+  open(
+    component: ReactNode,
+    { title, className }: { title?: string; className?: string } = {},
+  ) {
     const id = crypto.randomUUID();
     const { panels } = state.get();
     const lastPanel = panels[panels.length - 1];
@@ -42,6 +46,7 @@ const actions = {
           position: newPosition,
           title: title ?? "Panel",
           component,
+          className,
         },
       ],
     });

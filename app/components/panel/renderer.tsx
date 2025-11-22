@@ -1,14 +1,25 @@
 import { useStore } from "@nanostores/react";
-import { DndContext, type DragEndEvent } from "@dnd-kit/core";
+import {
+  DndContext,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  type DragEndEvent,
+} from "@dnd-kit/core";
 import { restrictToWindowEdges } from "@dnd-kit/modifiers";
+import { RemoveScroll } from "react-remove-scroll";
 import { DraggablePanel } from "./draggable-panel";
 import { $panelState, panel } from "./store";
-import { cn } from "~/lib/utils";
 
 export function PanelRenderer() {
   const { panels } = useStore($panelState);
-
-  if (panels.length === 0) return null;
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 5,
+      },
+    }),
+  );
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, delta } = event;
@@ -22,26 +33,41 @@ export function PanelRenderer() {
     });
   };
 
+  if (panels.length === 0) return null;
+
   return (
-    <div data-slot="panel-renderer" className={cn("fixed", "inset-0", "z-50")}>
+    <div
+      className={"fixed inset-0 z-50"}
+      data-slot="panel-renderer"
+      role="application"
+      aria-label="Panel Renderer"
+    >
       <div
         data-slot="panel-renderer-overlay"
-        className={cn("absolute", "inset-0", "z-40", "bg-black/50")}
+        className={"absolute inset-0 z-40 bg-black/50"}
       />
 
-      <DndContext modifiers={[restrictToWindowEdges]} onDragEnd={handleDragEnd}>
-        <div
-          data-slot="panel-renderer-content"
-          className={cn("absolute", "inset-0", "z-50", "pointer-events-none")}
-        >
-          {panels.map((panel) => {
-            return (
-              <DraggablePanel key={panel.id} {...panel}>
-                {panel.component}
-              </DraggablePanel>
-            );
-          })}
-        </div>
+      <DndContext
+        modifiers={[restrictToWindowEdges]}
+        sensors={sensors}
+        onDragEnd={handleDragEnd}
+      >
+        <RemoveScroll>
+          <div
+            className={"pointer-events-none absolute inset-0 z-50"}
+            data-slot="panel-renderer-content"
+            aria-live="polite"
+            aria-atomic="true"
+          >
+            {panels.map((panel) => {
+              return (
+                <DraggablePanel key={panel.id} {...panel}>
+                  {panel.component}
+                </DraggablePanel>
+              );
+            })}
+          </div>
+        </RemoveScroll>
       </DndContext>
     </div>
   );

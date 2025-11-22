@@ -1,18 +1,24 @@
-import { memo, useEffect, type PropsWithChildren } from "react";
+import { memo, useEffect, useRef, type PropsWithChildren } from "react";
 import { useDraggable } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
 import { useStore } from "@nanostores/react";
+import { XIcon } from "lucide-react";
 import { $panelState, panel, type PanelItem } from "./store";
 import { cn } from "~/lib/utils";
+import { useFocusTrap } from "~/hooks/focus-trap";
 
 export const DraggablePanel = memo(
   function DraggablePanel({
     id,
     title,
     position,
+    className,
     children,
   }: PropsWithChildren<PanelItem>) {
+    const panelRef = useRef<HTMLDivElement>(null);
     const { panels } = useStore($panelState);
+    const lastPanel = panels[panels.length - 1];
+    const isLastPanel = id === lastPanel.id;
     const { attributes, listeners, setNodeRef, transform, isDragging } =
       useDraggable({
         id,
@@ -24,22 +30,33 @@ export const DraggablePanel = memo(
     };
 
     useEffect(() => {
-      if (panels.length === 0) return;
-      const lastPanel = panels[panels.length - 1];
-      const handleKeyDown = (event: KeyboardEvent) => {
-        if (event.key === "Escape") {
-          panel.close(lastPanel.id);
+      if (!isLastPanel) return;
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === "Escape") {
+          e.preventDefault();
+          e.stopPropagation();
+          panel.close(id);
         }
       };
       window.addEventListener("keydown", handleKeyDown);
       return () => window.removeEventListener("keydown", handleKeyDown);
-    }, [panels]);
+    }, [id, isLastPanel]);
 
-    const handleFocus = () => panel.focus(id);
+    useFocusTrap(panelRef, isLastPanel);
+
+    const handleFocus = () => {
+      if (isLastPanel) return;
+      panel.focus(id);
+    };
+
+    const handleClose = () => panel.close(id);
 
     return (
       <div
-        ref={setNodeRef}
+        ref={(node) => {
+          setNodeRef(node);
+          if (node) panelRef.current = node;
+        }}
         style={style}
         role="dialog"
         aria-modal="true"
@@ -50,29 +67,40 @@ export const DraggablePanel = memo(
         className={cn(
           "pointer-events-auto",
           "absolute",
+          "p-3",
           "rounded-md",
           "bg-white",
-          "p-3",
           "text-black",
           "shadow-lg",
           "-translate-1/2",
           "transition-shadow",
           "whitespace-nowrap",
           "overflow-hidden",
+          "active:shadow",
           isDragging && "shadow",
+          isLastPanel && "outline-2 outline-blue-500/50",
+          className,
         )}
         onPointerDown={handleFocus}
       >
-        <header
+        <div
           {...attributes}
           {...listeners}
-          className="-m-3 mb-0 cursor-move bg-gray-200 px-3 py-1.5"
+          className="-m-3 mb-0 flex touch-none items-center gap-2 bg-gray-200 px-3 py-1.5 select-none"
           aria-label="Panel Header. Drag to move."
         >
-          <h1 id={id} className="font-bold" aria-label="Panel Title">
+          <h2 id={id} className="font-bold" aria-label="Panel Title">
             {title}
-          </h1>
-        </header>
+          </h2>
+          <button
+            type="button"
+            onClick={handleClose}
+            className="ml-auto cursor-pointer text-gray-500 outline-none hover:text-black focus:text-black"
+            aria-label={`${title} Panel Close Button`}
+          >
+            <XIcon className="size-4" />
+          </button>
+        </div>
         <div
           className="mt-3"
           role="region"
@@ -80,19 +108,8 @@ export const DraggablePanel = memo(
           aria-label="Panel Content"
           data-slot="panel-content"
         >
-          <span className="text-xs text-gray-500">{id}</span>
-          <div>{children}</div>
+          {children}
         </div>
-        <footer className="flex" role="group" aria-label="Panel Footer">
-          <button
-            type="button"
-            onClick={() => panel.close(id)}
-            className="ml-auto cursor-pointer"
-            aria-label={`${title} Panel Close Button`}
-          >
-            close
-          </button>
-        </footer>
       </div>
     );
   },
