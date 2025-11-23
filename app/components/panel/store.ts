@@ -1,4 +1,3 @@
-// import type { ComponentType } from "react";
 import type { ReactNode } from "react";
 import { map } from "nanostores";
 
@@ -81,9 +80,4 @@ const actions = {
 
 export const $panelState = state;
 
-export const panel = {
-  open: actions.open,
-  close: actions.close,
-  updatePosition: actions.updatePosition,
-  focus: actions.focus,
-};
+export const panel = actions;
