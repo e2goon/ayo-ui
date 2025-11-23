@@ -78,7 +78,7 @@ export const DraggablePanel = memo(
           "overflow-hidden",
           "active:shadow",
           isDragging && "shadow",
-          isLastPanel && "outline-2 outline-blue-500/50",
+          isLastPanel && "outline-2 outline-blue-800/50",
           className,
         )}
         onPointerDown={handleFocus}
@@ -88,7 +88,7 @@ export const DraggablePanel = memo(
           {...listeners}
           className={cn(
             "-m-3 mb-0 flex touch-none items-center gap-2 bg-gray-200 px-3 py-1.5 outline-none select-none",
-            isLastPanel && "bg-gray-300 outline-2 outline-blue-500/50",
+            isLastPanel && "bg-gray-300 outline-2 outline-blue-800/50",
           )}
           aria-label="Panel Header. Drag to move."
         >
@@ -99,7 +99,7 @@ export const DraggablePanel = memo(
             type="button"
             onClick={handleClose}
             onPointerDown={(e) => e.stopPropagation()}
-            className="ml-auto cursor-pointer text-gray-500 outline-none hover:text-black focus:text-black"
+            className="ml-auto cursor-pointer text-gray-500 outline-none hover:text-black focus-visible:text-black"
             aria-label={`${title} Panel Close Button`}
           >
             <XIcon className="size-4" />

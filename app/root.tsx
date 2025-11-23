@@ -7,9 +7,9 @@ import {
   Scripts,
   ScrollRestoration,
 } from "react-router";
-
-import "./app.css";
 import { PanelRenderer } from "./components/panel/renderer";
+
+import "./styles/globals.css";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://cdn.jsdelivr.net" },

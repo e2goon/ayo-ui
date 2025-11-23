@@ -1,6 +1,7 @@
 import type { Route } from "./+types/_index";
 import { cn } from "~/lib/utils";
-import { panel } from "~/components/panel";
+import { $panelState, panel } from "~/components/panel";
+import { Button } from "~/components/button";
 
 export function meta(_: Route.MetaArgs) {
   return [
@@ -11,24 +12,22 @@ export function meta(_: Route.MetaArgs) {
 
 export default function Home(_: Route.ComponentProps) {
   const handleOpenPanel = () => {
+    const { panels } = $panelState.get();
+    const panelCount = panels.length + 1;
     panel.open(
-      <div>
+      <div className="space-y-2">
         <div>Content</div>
-        <button
-          type="button"
-          className="cursor-pointer text-blue-500 underline"
-          onClick={handleOpenPanel}
-        >
+        <Button type="button" onClick={handleOpenPanel}>
           Open Panel
-        </button>
+        </Button>
       </div>,
-      { title: "Panel 하하", className: cn("w-full max-w-xs") },
+      { title: `Panel ${panelCount}`, className: cn("w-full max-w-xs") },
     );
   };
 
   return (
     <div className="p-4">
-      <h1 className="font-bold">Panel</h1>
+      <h1 className="text-lg font-bold">Panel</h1>
       <p>
         판넬을 여러개 띄우고, 드래그로 이동할 수 있습니다. nanostores 로 상태를
         관리하며 dndkit 으로 드래그 기능을 구현했습니다.
@@ -36,13 +35,9 @@ export default function Home(_: Route.ComponentProps) {
 
       <br />
 
-      <button
-        type="button"
-        className="cursor-pointer border px-1.5"
-        onClick={handleOpenPanel}
-      >
+      <Button type="button" onClick={handleOpenPanel}>
         Open Panel
-      </button>
+      </Button>
     </div>
   );
 }
