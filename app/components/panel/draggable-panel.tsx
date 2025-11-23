@@ -86,7 +86,10 @@ export const DraggablePanel = memo(
         <div
           {...attributes}
           {...listeners}
-          className="-m-3 mb-0 flex touch-none items-center gap-2 bg-gray-200 px-3 py-1.5 select-none"
+          className={cn(
+            "-m-3 mb-0 flex touch-none items-center gap-2 bg-gray-200 px-3 py-1.5 outline-none select-none",
+            isLastPanel && "bg-gray-300 outline-2 outline-blue-500/50",
+          )}
           aria-label="Panel Header. Drag to move."
         >
           <h2 id={id} className="font-bold" aria-label="Panel Title">
@@ -95,6 +98,7 @@ export const DraggablePanel = memo(
           <button
             type="button"
             onClick={handleClose}
+            onPointerDown={(e) => e.stopPropagation()}
             className="ml-auto cursor-pointer text-gray-500 outline-none hover:text-black focus:text-black"
             aria-label={`${title} Panel Close Button`}
           >
