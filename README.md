@@ -1,3 +1,21 @@
+# Ayo UI
+
+이 저장소는 제가 업무를 진행하면서 실제 진행 중인 업무의 속도와 효율을 잡기 위해 미리 만들어 놓는 공간이기도 하면서 학습과 자기개발의 목적이 큽니다. 이 저장소의 방향은 아직 정해지지 않았으며, 실험적이고, 방향이 많이 바뀔 수 있습니다.
+
+저는 다음과 같은 라이브러리를 즐겨 사용합니다.
+
+- state management: nanostores
+- routing: react-router
+- styling: tailwindcss
+- utilities: clsx, tailwind-merge
+- icons: lucide-react
+- fonts: SUIT
+
+디자인 및 라이브러리는 shadcn, radix-ui, base-ui 에서 많이 영감을 얻고 있으나 유사 사례가 없으면 그냥 제가 만들어 씁니다.
+
+<details>
+    <summary>Welcome to React Router!</summary>
+    
 # Welcome to React Router!
 
 A modern, production-ready template for building full-stack React applications using React Router.
@@ -77,3 +95,5 @@ This template comes with [Tailwind CSS](https://tailwindcss.com/) already config
 ---
 
 Built with ❤️ using React Router.
+
+</details>
