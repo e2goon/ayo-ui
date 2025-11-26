@@ -10,3 +10,35 @@ html,
 body {
   @apply bg-white text-black;
 }
+
+@layer utilities {
+  .mac-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.35) transparent;
+  }
+
+  .mac-scrollbar::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  .mac-scrollbar::-webkit-scrollbar-button {
+    display: none;
+  }
+
+  .mac-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .mac-scrollbar::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.35);
+    border-radius: 9999px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+    min-height: 28px;
+  }
+
+  .mac-scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+}
