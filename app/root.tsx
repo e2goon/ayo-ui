@@ -28,7 +28,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body>
+      <body className="root relative isolate">
         {children}
         <PanelRenderer />
         <ScrollRestoration />

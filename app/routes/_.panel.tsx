@@ -1,4 +1,4 @@
-import type { Route } from "./+types/_index";
+import type { Route } from "./+types/_._index";
 import { cn } from "~/lib/utils";
 import { $panelState, panel } from "~/components/panel";
 import { Button } from "~/components/button";
@@ -10,7 +10,7 @@ export function meta(_: Route.MetaArgs) {
   ];
 }
 
-export default function Home(_: Route.ComponentProps) {
+export default function PanelRoute(_: Route.ComponentProps) {
   const handleOpenPanel = () => {
     const { panels } = $panelState.get();
     const panelCount = panels.length + 1;
@@ -26,7 +26,7 @@ export default function Home(_: Route.ComponentProps) {
   };
 
   return (
-    <div className="p-4">
+    <div>
       <h1 className="text-lg font-bold">Panel</h1>
       <p>
         판넬을 여러개 띄우고, 드래그로 이동할 수 있습니다. nanostores 로 상태를
