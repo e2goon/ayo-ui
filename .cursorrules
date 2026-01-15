@@ -1,0 +1,9 @@
+# Git Commit Message Rules
+
+- Generate all git commit messages in Korean (Hangul).
+- 커밋 메시지의 제목과 본문은 반드시 **한글**로 작성해주세요.
+- Conventional Commits 규칙(feat, fix, style, test, wip, docs, chore, refactor, perf, build, ci, revert, security, type 등)을 따르되, 설명은 한글로 적어주세요.
+
+Example format:
+feat: 사용자 로그인 기능 추가
+fix: 헤더 레이아웃 깨짐 수정
