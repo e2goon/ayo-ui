@@ -9,11 +9,11 @@ export function meta(_: Route.MetaArgs) {
 
 export default function IndexRoute(_: Route.ComponentProps) {
   return (
-    <div>
+    <div className="space-y-2">
       <h1 className="text-2xl font-bold">Welcome to ayo ui</h1>
       <p>
-        실무에서 직접 겪은 문제를 바탕으로, 학습 목적으로 만들어 본
-        라이브러리입니다.
+        실무에서 직접 겪은 문제, 학습 목적, 미리 만들어놓고 실제 업무에 사용하기
+        위한 목적으로 낙서장 같은 공간으로 사용하고 있습니다.
       </p>
     </div>
   );

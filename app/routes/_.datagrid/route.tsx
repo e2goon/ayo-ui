@@ -33,7 +33,7 @@ export default function DatagridRoute() {
       .getRenderedNodes()
       .map((node) => node.data);
     if (!rowData) return;
-    console.log(rowData);
+    alert(JSON.stringify(rowData));
   };
 
   return (
