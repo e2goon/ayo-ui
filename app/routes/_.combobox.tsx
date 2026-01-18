@@ -10,25 +10,35 @@ export default function ComboboxRoute() {
       <section className="space-y-2">
         <h2>단일선택 콤보박스</h2>
         <div>
-          <Combobox items={countries} />
+          <Combobox items={countries} className="min-w-[240px]" />
         </div>
       </section>
 
       <section className="space-y-2">
         <h2>다중선택 콤보박스</h2>
         <div>
-          <Combobox items={countries} multiple />
+          <Combobox items={countries} multiple className="min-w-[240px]" />
         </div>
       </section>
 
       <section className="space-y-2">
         <h1>비활성화 콤보박스</h1>
-        <Combobox items={countries} disabled multiple />
+        <Combobox
+          items={countries}
+          disabled
+          multiple
+          className="min-w-[240px]"
+        />
       </section>
 
       <section className="space-y-2">
-        <h1>비활성화 콤보박스</h1>
-        <Combobox items={countries} defaultValue={[countries[14]]} multiple />
+        <h1>기본선택 콤보박스</h1>
+        <Combobox
+          items={countries}
+          defaultValue={[countries[14]]}
+          multiple
+          className="min-w-[240px]"
+        />
       </section>
     </div>
   );

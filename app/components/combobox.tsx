@@ -5,11 +5,20 @@ import { cn } from "~/lib/utils";
 
 export function Combobox({
   placeholder = "Select item",
+  className,
   ...props
-}: ComponentProps<typeof ComboboxPrimitive.Root> & { placeholder?: string }) {
+}: ComponentProps<typeof ComboboxPrimitive.Root> & {
+  placeholder?: string;
+  className?: string;
+}) {
   return (
     <ComboboxPrimitive.Root {...props}>
-      <ComboboxPrimitive.Trigger className="inline-flex min-h-[34px] min-w-[160px] flex-1 items-center border px-2 py-1 disabled:opacity-50 disabled:select-none">
+      <ComboboxPrimitive.Trigger
+        className={cn(
+          "inline-flex min-h-[34px] min-w-[160px] flex-1 items-center border px-2 py-1 disabled:opacity-50 disabled:select-none",
+          className,
+        )}
+      >
         <div className={"flex-1 text-left"}>
           <ComboboxPrimitive.Value>
             {(value) => {
@@ -64,12 +73,12 @@ export function Combobox({
                       "flex cursor-pointer items-center gap-2 px-2 py-1.5 leading-none data-highlighted:bg-gray-100",
                     )}
                   >
-                    <span className="size-3">
+                    <span className="size-3 flex-none">
                       <ComboboxPrimitive.ItemIndicator>
                         <CheckIcon className="size-3" />
                       </ComboboxPrimitive.ItemIndicator>
                     </span>
-                    <span>{item.label}</span>
+                    <span className="truncate">{item.label}</span>
                   </ComboboxPrimitive.Item>
                 );
               }}

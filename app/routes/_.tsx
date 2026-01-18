@@ -19,6 +19,7 @@ export default function RootLayout() {
         <div className="mt-4 flex space-x-2 *:underline">
           <Link to={href("/panel")}>Panel</Link>
           <Link to={href("/combobox")}>Combobox</Link>
+          <Link to={href("/datagrid")}>Datagrid</Link>
         </div>
       </header>
 
