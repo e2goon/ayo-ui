@@ -1,15 +1,16 @@
-import React, { forwardRef } from "react";
+import { type Ref } from "react";
 import { AllCommunityModule, ModuleRegistry } from "ag-grid-community";
 import { AgGridReact, type AgGridReactProps } from "ag-grid-react";
 import { ayoTheme } from "./theme";
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
-type DatagridComponent = <TData>(
-  props: AgGridReactProps<TData> & React.RefAttributes<AgGridReact<TData>>,
-) => React.ReactElement;
-
-export const Datagrid = forwardRef(function DatagridRefComponent(props, ref) {
+export function Datagrid<T>({
+  ref,
+  ...props
+}: AgGridReactProps<T> & {
+  ref?: Ref<AgGridReact<T>>;
+}) {
   return (
     <div className="h-full">
       <AgGridReact
@@ -23,4 +24,4 @@ export const Datagrid = forwardRef(function DatagridRefComponent(props, ref) {
       />
     </div>
   );
-}) as DatagridComponent;
+}
