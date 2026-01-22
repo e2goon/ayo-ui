@@ -5,5 +5,5 @@ export default {
   future: {
     v8_viteEnvironmentApi: true,
   },
-  prerender: ["/"],
+  prerender: true,
 } satisfies Config;
